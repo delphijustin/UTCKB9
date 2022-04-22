@@ -10,4 +10,6 @@ you just only need the single exe file.
 
 It uses SetSystemTime function where it updates its UTC time which also
 makes your local time correct since that function converts UTC time to
-the timezone Windows was installed with
+the timezone Windows was installed with.
+
+It paints the UTC or 24-hour time in the upper-right corner of the screen
