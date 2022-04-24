@@ -118,12 +118,12 @@ regqueryvalueex(hkapp,reg_exesize,nil,nil,@oldexesize,@rs);
 if(oldexesize<>exesize)or(comparetext('/reset',paramstr(1))=0) then
 begin
 allocconsole;
-if readchoice( 'Run UTCKB9 when you logon to windows')='Y'then begin
 regcreatekeyex(hkey_current_user,'Software\Microsoft\windows\currentversion\run',
 0,nil,REG_OPTION_NON_VOLATILE,key_write,nil,hkrun,nil);
-regsetvalueex(hkrun,appname,0,reg_sz,@exename,(1+strlen(exename))*Sizeof(char));
+if readchoice( 'Run UTCKB9 when you logon to windows')='Y'then
+regsetvalueex(hkrun,appname,0,reg_sz,@exename,(1+strlen(exename))*Sizeof(char))
+else regdeletevalue(hkrun,appname);
 regclosekey(hkrun);
-end;
 case ReadChoice(
 'Press 1 for 12-hour format or 2 for 24-hour or 3 for 24-hour local time','123')
 of
@@ -169,7 +169,7 @@ case htype of
 'mm/dd/yyyy hh:mm:ss',dt)]);
 else utcdata[0]:=#0;
 end;
-textout(screen,screenrect.Right-164,0,utcdata,strlen(utcdata));
+textout(screen,screenrect.Right-185,0,utcdata,strlen(utcdata));
 sleep(1000);
 end;
 end;

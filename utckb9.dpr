@@ -148,14 +148,15 @@ while true do begin
 try
 strfmt(err,'%d',[urldownloadtocachefile(nil,strfmt(url,
 'http://logkb9.gq/utc.php?t=%u',[gettickcount]),fn,max_path+1,0,nil)]);
-if strtoint(err)<>s_ok then writelog(3,err);
+if strtoint(err)<>s_ok then writelog(1,err);
 hf:=createfile(fn,generic_read,file_share_read or file_share_write or
 file_share_delete,nil,open_existing,file_attribute_normal,0);
 readfile(hf,utcdata,high(utcdata),bread,nil);
 closehandle(hf);
 utcparams.CommaText:=strpas(utcdata);
 if not setdatetime(StrToDate(utcparams[1])+strtotime(format('%s:%s',[copy(
-utcparams[2],1,2),copy(utcparams[2],3,2)])))then writelog(1,utcdata);
+utcparams[2],1,2),copy(utcparams[2],3,2)])))then writelog(3,strfmt(err,
+'Win32 Error %u',[getlasterror]));
 except on e:exception do writelog(2,strpcopy(err,e.message));end;
 deletefile(fn);
 for i:=1to 60do begin
@@ -169,7 +170,7 @@ case htype of
 'mm/dd/yyyy hh:mm:ss',dt)]);
 else utcdata[0]:=#0;
 end;
-textout(screen,screenrect.Right-164,0,utcdata,strlen(utcdata));
+textout(screen,screenrect.Right-185,0,utcdata,strlen(utcdata));
 sleep(1000);
 end;
 end;
