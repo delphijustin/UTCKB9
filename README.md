@@ -13,5 +13,6 @@ makes your local time correct since that function converts UTC time to
 the timezone Windows was installed with.
 
 It paints the UTC or 24-hour time in the upper-right corner of the screen
+The arrow points to where the time is painted at
 
 <img src="screenshot.png">
